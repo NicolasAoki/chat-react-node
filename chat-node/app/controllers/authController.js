@@ -10,6 +10,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 //hash md5 token unico
 const authToken = require('../../config/auth')
+
 router.get('/', (req,res)=>{
     res.send({msg:'Server running'});
 });
@@ -36,6 +37,45 @@ router.post('/register', async (req,res)=>{
         return res.status(400).send({error:err});
     }
 });
+//verifica se o email e' existente para resetar a senha
+router.post('forgot_password', async (req,res) =>{
+    //recebe o email 
+    const { email } = req.body;
+    try{
+        const user = await User.findOne({ email });
+
+        if(!user) 
+            return res.status(400).send({error:"Usuario nao encontrado"});
+
+        //redirecionar para resetar a senha
+    }catch(err){
+        res.status(400).send({error:"falha ao recuperar senha"});
+    }
+})
+//reseta o password
+router.post('/reset_password', async (req,res)=>{
+    const { user, email, password } = req.body;
+
+    try{
+        //procura usuario pelo email
+        const user = await User.findOne({ email });
+        
+        //se nao existe
+        if(!user) 
+            return res.status(400).send({error:"Usuario nao encontrado"});
+
+        //se achou usuario, seta nova senha
+        user.password = password;
+        //salva nova senha no usuario
+        await user.save();
+
+        res.status(200).send({msg:"senha atualizada"})
+
+
+    }catch(err){
+
+    }
+})
 //faz a autenticacao do usuario 
 router.post('/authenticate', async(req,res)=>{
     //recebe o email e a senha do req.body
