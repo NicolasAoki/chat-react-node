@@ -54,7 +54,7 @@ router.post('forgot_password', async (req,res) =>{
 })
 //reseta o password
 router.post('/reset_password', async (req,res)=>{
-    const { user, email, password } = req.body;
+    const { email, password } = req.body;
 
     try{
         //procura usuario pelo email
@@ -69,12 +69,22 @@ router.post('/reset_password', async (req,res)=>{
         //salva nova senha no usuario
         await user.save();
 
-        res.status(200).send({msg:"senha atualizada"})
+        return res.status(200).send({msg:"senha atualizada"})
 
 
     }catch(err){
+        res.status(400).send({error:"falha ao recuperar senha"});
+    }
+})
+router.get('/users', async(req,res)=>{
+    try{
+        const user = await User.find({});
+        console.log(user);
+    }catch(err){
+        res.status(400).send({error:"falha ao listar usuarios"});
 
     }
+    return res.send(JSON.stringify(user));
 })
 //faz a autenticacao do usuario 
 router.post('/authenticate', async(req,res)=>{
