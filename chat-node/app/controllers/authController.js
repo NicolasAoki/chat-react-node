@@ -9,7 +9,7 @@ const bcrypt = require('bcrypt');
 //bibliote para o token de autenticacao
 const jwt = require('jsonwebtoken')
 //hash md5 token unico
-const authToken = require('../config/auth')
+const authToken = require('../../config/auth')
 router.get('/', (req,res)=>{
     res.send({msg:'Server running'});
 });
@@ -65,9 +65,6 @@ router.post('/authenticate', async(req,res)=>{
     });
         
 })
-router.all('*', (req,res)=>{
-    res.status(404).send({msg:'Pagina nao encontrada'});
-});
 
 function generateToken(params = {}){
     return jwt.sign(params, authToken.secret,{

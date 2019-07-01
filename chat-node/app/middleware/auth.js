@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const authConfig = require('../config/auth.json')
+const authConfig = require('../../config/auth.json')
 
 //valicao do token
 module.exports = (req,res,next)=>{

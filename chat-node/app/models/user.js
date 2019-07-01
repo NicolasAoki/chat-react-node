@@ -1,4 +1,4 @@
-const mongoose = require('../controllers/db');
+const mongoose = require('../../database/db');
 const bcrypt = require('bcrypt') 
 const UserSchema = new mongoose.Schema({
     name:{
