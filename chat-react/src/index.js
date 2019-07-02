@@ -9,6 +9,7 @@ import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
 import chat from './components/chat/chat';
 import login from './components/login/login';
 import notFound from './components/notFound/notFound';
+import menu from './components/chat/menu/menu';
 
 const routing = (
     <Router>
@@ -23,11 +24,15 @@ const routing = (
             <li>
               <Link to="/Chat">Chat</Link>
             </li>
+            <li>
+              <Link to="/Menu">Menu</Link>
+            </li>
         </ul>
         <Switch>
             <Route exact path="/" component={App} />
             <Route path="/login" component={login} />
             <Route path="/chat/:id" component={chat} />
+            <Route path="/menu" component={menu}/>
             <Route component={notFound} />
         </Switch>
      

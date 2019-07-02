@@ -5,7 +5,6 @@ export default class chat extends Component {
         const { params } = this.props.match;
         return (
             <div>
-                
                 <div>FUNCIONA CHAT</div>
                 <p>{params.id}</p>
             </div>
