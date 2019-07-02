@@ -76,16 +76,7 @@ router.post('/reset_password', async (req,res)=>{
         res.status(400).send({error:"falha ao recuperar senha"});
     }
 })
-router.get('/users', async(req,res)=>{
-    try{
-        const user = await User.find({});
-        console.log(user);
-    }catch(err){
-        res.status(400).send({error:"falha ao listar usuarios"});
 
-    }
-    return res.send(JSON.stringify(user));
-})
 //faz a autenticacao do usuario 
 router.post('/authenticate', async(req,res)=>{
     //recebe o email e a senha do req.body

@@ -35,6 +35,7 @@ module.exports = (req,res,next)=>{
     //o atributo id so' existe pelo res.send({token:generateToekn({id:user.id})})
     // que esta sendo passado no middleware
     req.userId = decoded.id;
+    
     return next();
 
     });
