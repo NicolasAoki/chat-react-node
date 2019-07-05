@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
-export default class login extends Component {
+export default class Login extends Component {
     
     render() {
 

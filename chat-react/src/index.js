@@ -1,43 +1,48 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { Route, Link, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom'
+import chat from './components/chat/Chat';
+import login from './components/login/Login';
+import notFound from './components/notFound/NotFound';
+import menu from './components/chat/menu/Menu';
 
+import AppBar from '@material-ui/core/AppBar';
 
-import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
-import chat from './components/chat/chat';
-import login from './components/login/login';
-import notFound from './components/notFound/notFound';
-import menu from './components/chat/menu/menu';
+import {isAuthenticated} from './auth';
+
+const PrivateRoute = ({ component:Component, ...rest }) => (
+  <Route {...rest } render={props=>(
+      isAuthenticated() ? (
+        <Component {...props}/>
+      ) : (
+        <Redirect to={{ pathname:'/', state:{ from: props.location }}}/>
+      )
+  )}/>
+)
 
 const routing = (
+ 
     <Router>
-      <div>
-        <ul>
-            <li>
-                <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/Login">Login</Link>
-            </li>
-            <li>
-              <Link to="/Chat">Chat</Link>
-            </li>
-            <li>
-              <Link to="/Menu">Menu</Link>
-            </li>
-        </ul>
-        <Switch>
-            <Route exact path="/" component={App} />
-            <Route path="/login" component={login} />
-            <Route path="/chat/:id" component={chat} />
-            <Route path="/menu" component={menu}/>
-            <Route component={notFound} />
-        </Switch>
-     
-      </div>
-    </Router>
+      <AppBar position="static">
+        <Link to="/">Home</Link>
+        <Link to="/login">Login</Link>
+        <Link to="/chat/:id">Chat</Link>
+        <Link to="/menu">Menu</Link>
+      </AppBar>
+      <Switch>
+        <Route exact path="/" component={App} />
+        <Route path="/login" component={login} />
+        <PrivateRoute path="/chat/:id" component={chat} />
+        <PrivateRoute path="/menu" component={menu}/>
+        <Route component={notFound} />
+      </Switch>
+
+      </Router>
+
+    
   )
 ReactDOM.render(routing, document.getElementById('root'));
 

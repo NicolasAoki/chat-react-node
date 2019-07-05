@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class chat extends Component {
+export default class Chat extends Component {
     render() {
         const { params } = this.props.match;
         return (
