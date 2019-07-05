@@ -11,8 +11,9 @@ import menu from './components/chat/menu/Menu';
 
 import AppBar from '@material-ui/core/AppBar';
 
-import {isAuthenticated} from './auth';
+import { isAuthenticated } from './auth';
 
+//Verificacao se o usuario esta autenticado
 const PrivateRoute = ({ component:Component, ...rest }) => (
   <Route {...rest } render={props=>(
       isAuthenticated() ? (
@@ -24,7 +25,6 @@ const PrivateRoute = ({ component:Component, ...rest }) => (
 )
 
 const routing = (
- 
     <Router>
       <AppBar position="static">
         <Link to="/">Home</Link>
@@ -39,10 +39,7 @@ const routing = (
         <PrivateRoute path="/menu" component={menu}/>
         <Route component={notFound} />
       </Switch>
-
-      </Router>
-
-    
+    </Router> 
   )
 ReactDOM.render(routing, document.getElementById('root'));
 

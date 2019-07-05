@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 // import { async } from 'q';
 const axios = require('axios');
+
 // axios.defaults.baseURL = 'http://localhost:3000/'
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkMWE5MTkwZjUyZTgxMzRhM2Y3NzUxZiIsImlhdCI6MTU2MjI3MjU5NiwiZXhwIjoxNTYyMzU4OTk2fQ.lZV1nFUXskvsIa6VD2ZLchF7QHchn69_Ro4Jwsr5J6s';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkMWE5MTkwZjUyZTgxMzRhM2Y3NzUxZiIsImlhdCI6MTU2MjM2NTQxMywiZXhwIjoxNTYyNDUxODEzfQ.Au7SRophTf7d-BZSBI3UDnG2sKsIgkJcUtE1KHM-p6s';
+
 const api = axios.create({
     baseURL:'http://localhost:3000',
     headers: {'Authorization': 'Bearer '+token}

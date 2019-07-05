@@ -8,27 +8,32 @@ import Input from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 export default class Login extends Component {
+    constructor(props) {
+        super(props)
+        this.handleForm = this.handleForm.bind(this);
+    }
     
+    handleForm(e){
+        e.preventDefault();
+        const data = new FormData(e.target);
+        console.log(data)
+    }
     render() {
 
         return (
             <Container>
-            
                 <FormControl>
-            
-                    <Input id="emailInput" aria-describedby="my-helper-text" />
-                    <FormHelperText id="my-helper-text">Digite o usuário</FormHelperText>
+                    <form onSubmit={this.handleForm}>
+                        <Input id="email" name="email" type="email" aria-describedby="email_input"/>
+                        <FormHelperText id="email_input">Digite o email</FormHelperText>
      
-      
-                    <Input id="senhaInput" aria-describedby="my-helper-tex" />
-                    <FormHelperText id="my-helper-tex">Digite sua senha</FormHelperText>
-
-                    <Button variant="outlined" color="primary">
-                        Entrar
-                    </Button>
-                    
+                        <Input id="senha" name="senha" type="password" aria-describedby="password_input"/>
+                        <FormHelperText id="password_input">Digite a senha</FormHelperText>
+     
+                        <button>Send data!</button>
+                    </form>
                 </FormControl>
-
+     
               
             </Container>
         )
