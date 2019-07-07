@@ -81,6 +81,7 @@ router.post('/reset_password', async (req,res)=>{
 router.post('/authenticate', async(req,res)=>{
     //recebe o email e a senha do req.body
     const {email,password}=req.body;
+    console.log(req.body)
     //verifica existencia do email ja junto com a senha
     const user = await User.findOne({email}).select('+password');
 
