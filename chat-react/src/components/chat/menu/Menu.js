@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
-// import { async } from 'q';
+
+import {isAuthenticated} from '../../../auth';
+
 const axios = require('axios');
 
-// axios.defaults.baseURL = 'http://localhost:3000/'
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkMWE5MTkwZjUyZTgxMzRhM2Y3NzUxZiIsImlhdCI6MTU2MjM2NTQxMywiZXhwIjoxNTYyNDUxODEzfQ.Au7SRophTf7d-BZSBI3UDnG2sKsIgkJcUtE1KHM-p6s';
-
 const api = axios.create({
-    baseURL:'http://localhost:3000',
-    headers: {'Authorization': 'Bearer '+token}
+    baseURL:'http://localhost:3000'
 })
 export default class Menu extends Component {
     constructor(props) {
@@ -20,7 +18,7 @@ export default class Menu extends Component {
 
     listaMensagens = async() => {
         try{
-            const { data:msg } = await api.get('/chat/listaMensagens')
+            const { data:msg } = await api.get('/chat/listaMensagens',{ headers: { Authorization: 'Bearer '+isAuthenticated.token } })
             
             console.log(this.state.mensagens);
             this.setState({ mensagens:msg });
@@ -32,7 +30,7 @@ export default class Menu extends Component {
 
     listaUsuarios = async() => {
         try{
-            const { data:usuarios } = await api.get('/chat/users')
+            const { data:usuarios } = await api.get('/chat/users',{ headers: { Authorization: 'Bearer '+isAuthenticated.token } })
             
             this.setState({ users:usuarios });
             console.log(this.state.users);

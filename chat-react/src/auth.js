@@ -1,1 +1,5 @@
-export const isAuthenticated = () => true;
+export const isAuthenticated = {
+    state: false,
+    user:{},
+    token:''
+};

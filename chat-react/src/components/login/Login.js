@@ -6,13 +6,13 @@ import FormControl from '@material-ui/core/FormControl';
 
 import Input from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { string } from 'prop-types';
 
+import {isAuthenticated} from '../../auth';
 import axios from 'axios';
-const token = '';
+
 const api = axios.create({
     baseURL:'http://localhost:3000',
-    headers: {'Authorization': 'Bearer '+token}
+    headers: {'Authorization': 'Bearer '+isAuthenticated.token}
 })
 
 export default class Login extends Component {
@@ -32,28 +32,29 @@ export default class Login extends Component {
         e.preventDefault();
         const data = new FormData(e.target);
 
-        console.log(data.get('email'),data.get('password'));
-
         await api.post('/auth/authenticate',{
             email: data.get('email'),
             password: data.get('password')
         })
-            .then(res =>{
-                console.log(res)
-                console.log(res.data)
-            })
-            .catch(err=>{
-                if(err.request){
-                    console.log(err.request.response);
-                    const errObject = {
-                        tooltip:{
-                            text:err.request.response.error,
-                            error:true
-                        }
+        .then(res =>{
+            // console.log(res.data.user,res.data.token)
+            isAuthenticated.state=true;
+            isAuthenticated.token=res.data.token;
+            isAuthenticated.user=res.data.user;
+        })
+        .catch(err=>{
+            if(err.request){
+                console.log(err.request.response);
+                const errObject = {
+                    tooltip:{
+                        text:err.request.response.error,
+                        error:true
                     }
-                    this.setState({tooltip:errObject.tooltip})
                 }
-            })
+                this.setState({tooltip:errObject.tooltip})
+            }
+        })
+
             
     }
     render() {

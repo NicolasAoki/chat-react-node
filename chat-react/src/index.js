@@ -16,7 +16,7 @@ import { isAuthenticated } from './auth';
 //Verificacao se o usuario esta autenticado
 const PrivateRoute = ({ component:Component, ...rest }) => (
   <Route {...rest } render={props=>(
-      isAuthenticated() ? (
+      isAuthenticated.state ? (
         <Component {...props}/>
       ) : (
         <Redirect to={{ pathname:'/', state:{ from: props.location }}}/>
