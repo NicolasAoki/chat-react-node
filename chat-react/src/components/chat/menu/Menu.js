@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import {isAuthenticated} from '../../../auth';
 
+import { Link } from 'react-router-dom';
 const axios = require('axios');
 
 const api = axios.create({
@@ -18,7 +19,7 @@ export default class Menu extends Component {
 
     listaMensagens = async() => {
         try{
-            const { data:msg } = await api.get('/chat/listaMensagens',{ headers: { Authorization: 'Bearer '+isAuthenticated.token } })
+            const { data:msg } = await api.post('/chat/listaMensagens',{ headers: { Authorization: 'Bearer '+isAuthenticated.token } })
             
             console.log(this.state.mensagens);
             this.setState({ mensagens:msg });
@@ -37,7 +38,16 @@ export default class Menu extends Component {
         }catch(e){
             console.log(e);
         }
-    } 
+    }
+    abreChat(id){
+        try{
+            console.log(id)
+            const path='/chat/'+id;
+            this.props.history.push(path);
+        }catch(e){
+            console.log(e);
+        }
+    }
     render() {
         return (
             <div>
@@ -50,10 +60,13 @@ export default class Menu extends Component {
                 <button onClick={this.listaUsuarios}>Lista usuarios</button>
                 <ul>
                     {this.state.users.map((item,index)=>(
-                        <li key={index}>{item.name} {item.email}</li> 
-                    ))}
+                        <li key={index} onClick={ () => this.abreChat(item._id) }>{item.email}</li> 
+                    ),true)}
                 </ul>
             </div>
         )
     }
 }
+{/* <Button component={Link} to="/login">
+Logue no sistema
+</Button> */}

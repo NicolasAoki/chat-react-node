@@ -35,7 +35,7 @@ const routing = (
       <Switch>
         <Route exact path="/" component={App} />
         <Route path="/login" component={login} />
-        {/* <PrivateRoute path="/chat/:id" component={chat} /> */}
+        <PrivateRoute path="/chat/:id" component={chat} />
         <PrivateRoute path="/menu" component={menu}/>
         <Route component={notFound} />
       </Switch>

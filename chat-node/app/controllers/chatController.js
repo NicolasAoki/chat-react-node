@@ -48,8 +48,10 @@ router.post('/enviaMensagem/:id',async (req,res)=>{
     }
 })
 
-router.get('/listaMensagens',async(req,res)=>{
+router.post('/listaMensagens',async(req,res)=>{
     try{
+        const { destinatario, remetente } = req.body;
+        console.log(destinatario,remetente)
         const msg = await Mensagem.find();
         res.status(200).send(msg);
     }catch(err){
