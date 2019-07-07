@@ -52,7 +52,9 @@ router.post('/listaMensagens',async(req,res)=>{
     try{
         const { destinatario, remetente } = req.body;
         console.log(destinatario,remetente)
-        const msg = await Mensagem.find();
+        const msg = await Mensagem
+                        .find({destinatario:destinatario,remetente:remetente})
+        console.log(msg);
         res.status(200).send(msg);
     }catch(err){
         res.status(400).send({error:"Falha ao listar mensagens"})    
