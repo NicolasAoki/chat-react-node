@@ -29,13 +29,13 @@ const routing = (
       <AppBar position="static">
         <Link to="/">Home</Link>
         <Link to="/login">Login</Link>
-        <Link to="/chat/:id">Chat</Link>
+        {/* <Link to="/chat/123">Chat</Link> */}
         <Link to="/menu">Menu</Link>
       </AppBar>
       <Switch>
         <Route exact path="/" component={App} />
         <Route path="/login" component={login} />
-        <PrivateRoute path="/chat/:id" component={chat} />
+        {/* <PrivateRoute path="/chat/:id" component={chat} /> */}
         <PrivateRoute path="/menu" component={menu}/>
         <Route component={notFound} />
       </Switch>

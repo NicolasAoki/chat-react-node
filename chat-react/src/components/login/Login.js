@@ -41,6 +41,7 @@ export default class Login extends Component {
             isAuthenticated.state=true;
             isAuthenticated.token=res.data.token;
             isAuthenticated.user=res.data.user;
+            this.props.history.push('/menu');
         })
         .catch(err=>{
             if(err.request){
