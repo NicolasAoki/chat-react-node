@@ -50,7 +50,7 @@ export default class Chat extends Component {
                 <p>{this.state.destinatario}</p>
                <ul>
                     {this.state.mensagens.map((item,index)=>(
-                        <li key={index}>{item.mensagem}</li>
+                        <li key={index}><p>{isAuthenticated.user.name}:</p>{item.mensagem}</li>
                     ))}
                 </ul>
             </div>
