@@ -57,6 +57,7 @@ export default class Menu extends Component {
                         <li key={index}>{item.mensagem}</li>
                     ))}
                 </ul>
+                
                 <button onClick={this.listaUsuarios}>Lista usuarios</button>
                 <ul>
                     {this.state.users.map((item,index)=>(

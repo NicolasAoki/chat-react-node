@@ -20,7 +20,10 @@ export default class Chat extends Component {
         this.setState({destinatario:params.id});
     }
     componentDidMount(){
-        this.listaMensagens();
+        setInterval(() => {
+            this.listaMensagens();
+           }, 1000)
+       
     }
 
     listaMensagens = async() => {
@@ -42,6 +45,31 @@ export default class Chat extends Component {
             console.log(e);
         }
     } 
+    async enviaMensagem(msg){
+        try{
+            var data = { 
+                'msg':msg,
+                'remetente': isAuthenticated.user._id,
+                'destinatario':this.state.destinatario
+              }
+              var headers = {
+                "Content-Type": "application/json",
+                headers: { 'Authorization': 'Bearer ' + isAuthenticated.token }
+              }
+            const { mensagemAdicionada } =
+                await api.post('/chat/enviaMensagem/'+data.destinatario,data,headers)
+            if(mensagemAdicionada)
+              this.setState({mensagens:[...this.state.mensagens,mensagemAdicionada]})
+
+        }catch(e){
+
+        }
+    }
+    handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            this.enviaMensagem(event.target.value);
+        }
+    }
     render() {
 
         return (
@@ -50,9 +78,14 @@ export default class Chat extends Component {
                 <p>{this.state.destinatario}</p>
                <ul>
                     {this.state.mensagens.map((item,index)=>(
-                        <li key={index}><p>{isAuthenticated.user.name}:</p>{item.mensagem}</li>
+                        <li key={index}>
+                            {/* <p>{isAuthenticated.user._id === item.remetente ? isAuthenticated.user.name : 'Amigo'}:</p> */}
+                            {item.mensagem}
+                        </li>
                     ))}
                 </ul>
+                <input type="text" id="one" onKeyPress={this.handleKeyPress} />
+                
             </div>
         )
     }
