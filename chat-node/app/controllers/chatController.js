@@ -53,9 +53,19 @@ router.post('/listaMensagens',async(req,res)=>{
         const { destinatario, remetente } = req.body;
         console.log(destinatario,remetente)
         const msg = await Mensagem
-                        .find({destinatario:destinatario,remetente:remetente})
-        console.log(msg);
-        res.status(200).send(msg);
+                        .find({$and:[
+                            {destinatario:destinatario,remetente:remetente}
+                        ]}).sort('-date');
+        const msg2 = await Mensagem
+                        .find({$and:[
+                            {destinatario:remetente,remetente:destinatario}
+                        ]}).sort('-date');
+        const mensagens = msg.concat(msg2);
+
+        mensagens.sort(function(a, b){
+            return a.createdAt - b.createdAt;
+        });
+        res.status(200).send(mensagens);
     }catch(err){
         res.status(400).send({error:"Falha ao listar mensagens"})    
     }

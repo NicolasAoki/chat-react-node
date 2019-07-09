@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import './Chat.css';
 import { isAuthenticated } from '../../auth';
 const axios = require('axios');
 
@@ -40,7 +40,7 @@ export default class Chat extends Component {
                 await api.post('/chat/listaMensagens',data,headers)
 
             this.setState({ mensagens:msg });
-
+            this.scrollToBottom();
         }catch(e){
             console.log(e);
         }
@@ -70,19 +70,25 @@ export default class Chat extends Component {
             this.enviaMensagem(event.target.value);
         }
     }
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }
     render() {
 
         return (
             <div>
                 <div>FUNCIONA CHAT</div>
                 <p>{this.state.destinatario}</p>
-               <ul>
+               <ul id="painelChat">
                     {this.state.mensagens.map((item,index)=>(
                         <li key={index}>
-                            {/* <p>{isAuthenticated.user._id === item.remetente ? isAuthenticated.user.name : 'Amigo'}:</p> */}
+                            <p>{isAuthenticated.user._id === item.remetente ? isAuthenticated.user.name : 'Amigo'}:</p>
                             {item.mensagem}
                         </li>
                     ))}
+                    <div style={{ float:"left", clear: "both" }}
+                        ref={(el) => { this.messagesEnd = el; }}>
+                    </div>
                 </ul>
                 <input type="text" id="one" onKeyPress={this.handleKeyPress} />
                 
