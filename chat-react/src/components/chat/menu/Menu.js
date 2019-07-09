@@ -51,13 +51,6 @@ export default class Menu extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.listaMensagens}>Lista mensagens</button>
-                <ul>
-                    {this.state.mensagens.map((item,index)=>(
-                        <li key={index}>{item.mensagem}</li>
-                    ))}
-                </ul>
-                
                 <button onClick={this.listaUsuarios}>Lista usuarios</button>
                 <ul>
                     {this.state.users.map((item,index)=>(
@@ -68,6 +61,3 @@ export default class Menu extends Component {
         )
     }
 }
-{/* <Button component={Link} to="/login">
-Logue no sistema
-</Button> */}

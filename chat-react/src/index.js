@@ -8,6 +8,7 @@ import chat from './components/chat/Chat';
 import login from './components/login/Login';
 import notFound from './components/notFound/NotFound';
 import menu from './components/chat/menu/Menu';
+import cadastrar from './components/cadastrar/Cadastrar';
 
 import AppBar from '@material-ui/core/AppBar';
 
@@ -29,12 +30,13 @@ const routing = (
       <AppBar position="static">
         <Link to="/">Home</Link>
         <Link to="/login">Login</Link>
-        {/* <Link to="/chat/123">Chat</Link> */}
+        <Link to="/cadastrar">Cadastrar</Link>
         <Link to="/menu">Menu</Link>
       </AppBar>
       <Switch>
         <Route exact path="/" component={App} />
         <Route path="/login" component={login} />
+        <Route path="/cadastrar" component={cadastrar}/>
         <PrivateRoute path="/chat/:id" component={chat} />
         <PrivateRoute path="/menu" component={menu}/>
         <Route component={notFound} />

@@ -68,6 +68,7 @@ export default class Chat extends Component {
     handleKeyPress = (event) => {
         if(event.key === 'Enter'){
             this.enviaMensagem(event.target.value);
+            event.target.value ='';
         }
     }
     scrollToBottom = () => {

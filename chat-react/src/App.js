@@ -10,6 +10,9 @@ class App extends Component {
           <Button component={Link} to="/login">
             Logue no sistema
           </Button>
+          <Button component={Link} to="/cadastrar">
+            Cadastrar
+          </Button>
         </div>
     );
   }
